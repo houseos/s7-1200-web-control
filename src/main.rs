@@ -1,3 +1,10 @@
+/*
+s7-1200-web-control
+Commandline utility
+SPDX-License-Identifier: GPL-3.0-only
+Copyright (C) 2020 Benjamin Schilling
+*/
+
 extern crate clap;
 use clap::{App, Arg};
 

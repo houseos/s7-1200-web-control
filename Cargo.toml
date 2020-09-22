@@ -1,3 +1,8 @@
+# s7-1200-web-control
+# Cargo.toml
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2020 Benjamin Schilling
+
 [package]
 name = "s7-1200-web-control"
 version = "0.1.0"

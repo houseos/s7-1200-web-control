@@ -1,1 +1,6 @@
+# s7-1200-web-control
+# gitignore
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2020 Benjamin Schilling
+
 /target
