@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Prepare Debian build
+      run: |
+        apt-get update
+        apt-get install debhelper cargo libssl-dev
+        mkdir -p debian-packaging
+        rsync -av --exclude='debian-packaging' . debian-packaging/
+        cd debian-packaging
     - uses: actions/checkout@v2
     - name: Set-up toolchain
       uses: actions-rs/toolchain@v1
@@ -23,13 +30,6 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         args: --all-features
-    - name: Prepare Debian build
-      run: |
-        apt-get update
-        apt-get install debhelper cargo libssl-dev
-        mkdir -p debian-packaging
-        rsync -av --exclude='debian-packaging' . debian-packaging/
-        cd debian-packaging
     - name: Build Debian Package
       run: |
         dpkg-buildpackage -uc -us
