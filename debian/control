@@ -1,0 +1,13 @@
+Source: s7-1200-web-control
+Section: net
+Priority: optional
+Maintainer: Benjamin Schilling <benjamin.schilling33@gmail.com>
+Build-Depends: cargo, libssl-dev
+Standards-Version: 4.0.0
+Homepage: https://github.com/HouseOS/s7-1200-web-control
+
+Package: s7-1200-web-control
+Architecture: any
+Depends: libssl1.1
+Description: Simatic S7 1200 Website Control CLI
+ CLI to control S7 1200 Websites

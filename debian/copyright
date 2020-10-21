@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: s7-1200-web-control
+Upstream-Contact: Benjamin Schilling <benjamin.schilling33@gmail.com>
+Source: https://github.com/HouseOS/s7-1200-web-control
+
+Files: *
+Copyright: 2020 Benjamin Schilling
+License: GPL-2

@@ -8,8 +8,19 @@ name = "s7-1200-web-control"
 version = "0.1.0"
 authors = ["Benjamin Schilling <benjamin.schilling33@gmail.com>"]
 edition = "2018"
+license = "GPL-3.0-only"
+homepage = "https://github.com/HouseOS/s7-1200-web-control"
+repository = "https://github.com/HouseOS/s7-1200-web-control"
+publish = false
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[package.metadata.deb]
+maintainer = "Benjamin Schilling <benjamin.schilling33@gmail.com>"
+copyright = "Copyright (C) 2020 Benjamin Schilling"
+license-file = ["LICENSE", "0"]
+changelog = "debian/changelog"
+depends = "openssl"
+section = "misc"
+priority = "optional"
 
 [dependencies]
 reqwest = { version = "0.10", features = ["blocking", "json", "cookies"] }

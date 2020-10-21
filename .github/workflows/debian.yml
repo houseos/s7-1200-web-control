@@ -1,0 +1,40 @@
+name: Debian packaging
+
+on: push
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set-up toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+        components: rustfmt, clippy
+    - name: linter
+      uses: actions-rs/clippy-check@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        args: --all-features
+    - name: Prepare Debian build
+      run: |
+        mkdir -p output
+    - name: Build Debian package
+      uses: dawidd6/action-debian-package@v1
+      with:
+        artifacts_directory: output # optional, relative to workspace directory
+    - name: list build files
+      run: |
+        cd output
+        ls -al
+        cd ..
+    - uses: actions/upload-artifact@v1
+      with:
+        name: output/s7-1200-web-control
