@@ -25,6 +25,7 @@ jobs:
         args: --all-features
     - name: Prepare Debian build
       run: |
+        apt-get update
         apt-get install debhelper cargo libssl-dev
         mkdir -p debian-packaging
         rsync -av --exclude='debian-packaging' . debian-packaging/
