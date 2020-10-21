@@ -35,7 +35,7 @@ jobs:
         dpkg-buildpackage -uc -us
     - name: list build files
       run: |
-        cd output
+        cd debian-packaging
         ls -al
         cd ..
     - uses: actions/upload-artifact@v1
