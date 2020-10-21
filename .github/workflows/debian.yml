@@ -13,8 +13,8 @@ jobs:
     steps:
     - name: Prepare Debian build
       run: |
-        apt-get update
-        apt-get install debhelper cargo libssl-dev
+        sudo apt-get update
+        sudo apt-get install debhelper cargo libssl-dev
         mkdir -p debian-packaging
         rsync -av --exclude='debian-packaging' . debian-packaging/
         cd debian-packaging
