@@ -33,11 +33,7 @@ jobs:
     - name: Build Debian Package
       run: |
         dpkg-buildpackage -uc -us
-    - name: list build files
-      run: |
-        cd debian-packaging
-        ls -al
-        cd ..
     - uses: actions/upload-artifact@v1
       with:
         name: s7-1200-web-control_0.1.0-0.deb
+        path: s7-1200-web-control_0.1.0-0.deb
