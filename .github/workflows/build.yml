@@ -1,4 +1,4 @@
-name: Debian packaging
+name: Build
 
 on: push
 
@@ -6,7 +6,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  build-debian:
 
     runs-on: ubuntu-latest
 
