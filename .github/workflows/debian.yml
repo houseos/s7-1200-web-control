@@ -29,20 +29,11 @@ jobs:
         sudo apt-get install debhelper cargo libssl-dev
         mkdir -p debian-packaging
         rsync -av --exclude='debian-packaging' . debian-packaging/
-        cd debian-packaging
     - name: Build Debian Package
       run: |
-        dpkg-buildpackage -uc -us
-        echo "this dir"
-        ls -al
-        echo "debian-packaging"
         cd debian-packaging
-        ls -al
-        cd ..
-        echo "one dir above"
-        cd ..
-        ls -al
+        dpkg-buildpackage -uc -us
     - uses: actions/upload-artifact@v1
       with:
-        name: s7-1200-web-control_0.1.0-0.deb
-        path: .
+        name: s7-1200-web-control_0.1.0-0_amd64.deb
+        path: ./s7-1200-web-control_0.1.0-0_amd64.deb
