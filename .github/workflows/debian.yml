@@ -33,6 +33,14 @@ jobs:
     - name: Build Debian Package
       run: |
         dpkg-buildpackage -uc -us
+        echo "this dir"
+        ls -al
+        echo "debian-packaging"
+        cd debian-packaging
+        ls -al
+        cd ..
+        echo "one dir above"
+        cd ..
         ls -al
     - uses: actions/upload-artifact@v1
       with:
