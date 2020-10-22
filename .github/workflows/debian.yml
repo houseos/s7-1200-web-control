@@ -37,3 +37,21 @@ jobs:
       with:
         name: s7-1200-web-control_0.1.0-0_amd64.deb
         path: ./s7-1200-web-control_0.1.0-0_amd64.deb
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set-up toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Build exe
+      run: |
+        cargo build --release
+    - uses: actions/upload-artifact@v1
+      with:
+        name: s7-1200-web-control.exe
+        path: ./target/release/s7-1200-web-control.exe
