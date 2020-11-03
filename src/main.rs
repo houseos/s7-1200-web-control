@@ -16,25 +16,49 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             Arg::with_name("ip")
                 .help("IPv4 address of S7-1200")
                 .required(true)
-                .index(1),
-        )
+                .long("ip")
+                .takes_value(true)
+        )    
         .arg(
             Arg::with_name("key")
                 .help("Key to be set")
                 .required(true)
-                .index(2),
+                .long("key")
+                .takes_value(true)
         )
         .arg(
             Arg::with_name("value")
                 .help("New value for the key")
                 .required(true)
-                .index(3),
+                .long("value")
+                .takes_value(true)
+        )
+        .arg(
+            Arg::with_name("username")
+                .help("Username for the login")
+                .required(true)
+                .long("username")
+                .takes_value(true)
+        )
+        .arg(
+            Arg::with_name("password")
+                .help("Password for the login")
+                .required(false)
+                .long("password")
+                .takes_value(true)
         )
         .get_matches();
 
     let target_ip = matches.value_of("ip").unwrap();
     let param_key = matches.value_of("key").unwrap();
     let param_value = matches.value_of("value").unwrap();
+    let param_username = matches.value_of("username").unwrap();
+    let mut param_password = "";
+    if matches.is_present("password") {
+        param_password = matches.value_of("password").unwrap();
+    } else {
+        println!("No password given, using empty password.");
+    }
 
     println!(
         "Setting {} to {} at IP address {}",
@@ -42,7 +66,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     );
 
     // This will POST a body of `foo=bar&baz=quux`
-    let login_params = [("Login", "admin"), ("Password", ""), ("Redirection", "")];
+    let login_params = [("Login", param_username), ("Password", param_password), ("Redirection", "")];
     let control_params = [(param_key, param_value)];
     let use_cookie_store = true;
     let client = reqwest::blocking::Client::builder()
