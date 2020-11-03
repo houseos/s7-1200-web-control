@@ -17,35 +17,35 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .help("IPv4 address of S7-1200")
                 .required(true)
                 .long("ip")
-                .takes_value(true)
-        )    
+                .takes_value(true),
+        )
         .arg(
             Arg::with_name("key")
                 .help("Key to be set")
                 .required(true)
                 .long("key")
-                .takes_value(true)
+                .takes_value(true),
         )
         .arg(
             Arg::with_name("value")
                 .help("New value for the key")
                 .required(true)
                 .long("value")
-                .takes_value(true)
+                .takes_value(true),
         )
         .arg(
             Arg::with_name("username")
                 .help("Username for the login")
                 .required(true)
                 .long("username")
-                .takes_value(true)
+                .takes_value(true),
         )
         .arg(
             Arg::with_name("password")
                 .help("Password for the login")
                 .required(false)
                 .long("password")
-                .takes_value(true)
+                .takes_value(true),
         )
         .get_matches();
 
@@ -65,18 +65,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         param_key, param_value, target_ip
     );
 
-    // This will POST a body of `foo=bar&baz=quux`
-    let login_params = [("Login", param_username), ("Password", param_password), ("Redirection", "")];
+    let login_params = [
+        ("Login", param_username),
+        ("Password", param_password),
+        ("Redirection", ""),
+    ];
     let control_params = [(param_key, param_value)];
+    // Enable cookie store to cache authentication token
     let use_cookie_store = true;
+
+    // Create HTTP Client
     let client = reqwest::blocking::Client::builder()
         .cookie_store(use_cookie_store)
+        // accept invalid certificate of S7-1200 webserver
         .danger_accept_invalid_certs(true)
+        //The login header is case sensitive
         .http1_title_case_headers()
         .build()?;
+    // Create login URL and perform login
     let login_url = format!("https://{}/FormLogin", target_ip);
     let res = client.post(&login_url).form(&login_params).send();
     println!("{:#?}", res);
+
+    // Create control URL
     let control_url = format!("https://{}/awp/control/control.html", target_ip);
     let res = client.post(&control_url).form(&control_params).send();
     println!("{:#?}", res);
