@@ -7,8 +7,11 @@
 
 all: clean build
 
-build:
-		cargo build --release
+deps:
+		curl https://sh.rustup.rs -sSf | sh -s -- -y && export PATH=$(PATH):$(HOME)/.cargo/bin && rustup toolchain install nightly && rustup default nightly
+
+build: deps
+		export PATH=$(PATH):$(HOME)/.cargo/bin && cargo build --release
 
 install: 
 		mkdir -p $(DESTDIR)/opt/s7-1200-web-control/

@@ -2,7 +2,7 @@ Source: s7-1200-web-control
 Section: net
 Priority: optional
 Maintainer: Benjamin Schilling <benjamin.schilling33@gmail.com>
-Build-Depends: cargo, libssl-dev
+Build-Depends: libssl-dev
 Standards-Version: 4.0.0
 Homepage: https://github.com/HouseOS/s7-1200-web-control
 
