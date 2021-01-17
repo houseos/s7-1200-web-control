@@ -26,7 +26,7 @@ jobs:
     - name: Prepare Debian build
       run: |
         sudo apt-get update
-        sudo apt-get install debhelper cargo libssl-dev
+        sudo apt-get install debhelper libssl-dev
         mkdir -p debian-packaging
         rsync -av --exclude='debian-packaging' . debian-packaging/
     - name: Build Debian Package
