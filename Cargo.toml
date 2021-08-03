@@ -25,3 +25,4 @@ priority = "optional"
 [dependencies]
 reqwest = { version = "0.10", features = ["blocking", "json", "cookies"] }
 clap = "2.33.3"
+http = "0.2.3"

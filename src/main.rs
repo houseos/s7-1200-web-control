@@ -7,6 +7,7 @@ Copyright (C) 2020 Benjamin Schilling
 
 extern crate clap;
 use clap::{App, Arg};
+use http::status::StatusCode;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = App::new("s7-1200-web-control")
@@ -84,8 +85,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
     // Create login URL and perform login
     let login_url = format!("https://{}/FormLogin", target_ip);
-    let res = client.post(&login_url).form(&login_params).send();
-    println!("{:#?}", res);
+    let res = client
+        .post(&login_url)
+        .form(&login_params)
+        .send()
+        .map_err(|err| {
+            if err.is_timeout() {
+                println!("Request timed out, maybe check your proxy settings.");
+                std::process::exit(0x0001);
+            } else if err.is_request() {
+                println!("Request related.");
+                std::process::exit(0x0001);
+            } else {
+                println!("{:#?}", err);
+                std::process::exit(0x0001);
+            }
+        });
 
     // Create control URL
     let control_url = format!("https://{}/awp/control/control.html", target_ip);
